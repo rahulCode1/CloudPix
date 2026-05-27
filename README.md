@@ -1,70 +1,294 @@
-# Getting Started with Create React App
+# Kaviospix
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full stack image management app where you can browse, search, add, edit and view album images.
+Built with React frontend, Express/Node backend, MongoDB database and JWT-based authentication.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Demo Link
 
-### `npm start`
+[Live Demo](https://kavios-pix-frontend-eight.vercel.app)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Login
 
-### `npm test`
+> **Google OAuth**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Quick Start
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+git clone https://github.com/rahulCode1/kaviosPix_frontend.git
+cd my-app
+npm install
+npm run dev # or `npm start`
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Technologies
 
-### `npm run eject`
+- React JS
+- React Router
+- Node JS
+- MongoDB
+- JWT
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Demo Video
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Watch a walkthrough(3-4 minutes) of all the major features of this app:
+[Loom Video]()
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## Features
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**Home**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Display a list of all albums
+- Create new album
+- Edit existing album
+- View album
 
-### Code Splitting
+**Album Details**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- View all images that added to album
+- Search images via tags
+- Mark or Unmark images as favorite
+- Allow other user to see that album
+- Delete album
+- Copy album Url
 
-### Analyzing the Bundle Size
+**Image Details**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- See image releted information(Person name, tags, tag as favorite or not)
+- Write comments
+- Delete image
 
-### Making a Progressive Web App
+**Add Album**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Add new album
 
-### Advanced Configuration
+**Add Image**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- Select existing album
+- Add image information
+- Select image
 
-### Deployment
+**Authentication**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- Google OAuth2.0 (Login with google)
+- Protected routes for add/editing album and images
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## API Reference
+
+### **GET /api/albums**<br>
+
+List all albums<br>
+Sample Response:<br>
+
+```
+[
+    {
+        _id,
+        name,
+        description,
+        ...
+    },
+    ...
+]
+```
+
+### **POST /api/albums**<br>
+
+Add new Ablum<br>
+Sample Response:<br>
+
+```
+
+    {
+        _id,
+        name,
+        description,
+        ...
+    }
+
+
+```
+
+### **PUT /api/albums/:albumId**<br>
+
+Update album<br>
+Sample Response:<br>
+
+```
+
+    {
+        _id,
+        name,
+        description,
+        ...
+    }
+
+
+```
+
+### **PUT /api/albums/:albumId/share**<br>
+
+Allow other user to see your album<br>
+Sample Response:<br>
+
+```
+
+    {
+        _id,
+        emails: ["user1@gmail.com", ...]
+    }
+
+
+```
+
+### **GET /api/albums/:albumId/favorites**<br>
+
+Get all favourite images in your album<br>
+Sample Response:<br>
+
+```
+[
+    {
+        _id,
+       name,
+       imageUrl,
+       isFavorite,
+       ...
+    },
+    ...
+
+]
+```
+
+### **DELETE /api/albums/:albumId**<br>
+
+Delete album<br>
+Sample Response:<br>
+
+```
+
+    {
+        _id,
+        albumId
+    }
+
+
+```
+
+### **GET /api/image/:albumId/images/:imageId/details**<br>
+
+List all images in an album<br>
+Sample Response:<br>
+
+```
+[
+   {
+        _id,
+       name,
+       imageUrl,
+       isFavorite,
+       ...
+    },
+    ...
+]
+```
+
+### **POST /api/image/:albumId/images**<br>
+
+Add new image in an album<br>
+Sample Response:<br>
+
+```
+
+   {
+        _id,
+       name,
+       imageUrl,
+       isFavorite,
+       ...
+    },
+
+
+```
+
+### **PUT /api/image/:albumId/images/:imageId/favorite**<br>
+
+Mark image as favorite in an album<br>
+Sample Response:<br>
+
+```
+
+   {
+        _id,
+       name,
+       imageUrl,
+       isFavorite
+
+    },
+
+
+```
+
+### **POST /api/image/:imageId/comments**<br>
+
+Add comments on image.<br>
+Sample Response:<br>
+
+```
+
+   {
+        _id,
+       comment
+
+    }
+
+
+```
+
+### **DELETE /api/image/:albumId/images/:imageId/delete**<br>
+
+Delete selected image form album.<br>
+Sample Response:<br>
+
+```
+  {
+        _id,
+       imageId
+
+    }
+
+```
+
+### **GET /api/users/users**<br>
+
+List of all users<br>
+Sample Response<br>
+
+```
+[
+    {
+        _id,
+        email,
+        name
+    }
+]
+```
+
+---
+
+## Contact
+
+For bugs or feature request, please reach out to rahulkumawat50665@gmail.com
