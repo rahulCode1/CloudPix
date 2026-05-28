@@ -16,7 +16,7 @@ export const addImageAsync = createAsyncThunk(
       formData.append("image", entries.imageFile);
 
       const response = await axiosInstance.post(
-        `/albums/${entries.albumId}/images`,
+        `/image/${entries.albumId}/addImage`,
         formData,
         {
           headers: {

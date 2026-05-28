@@ -188,22 +188,39 @@ Sample Response:<br>
 
 ```
 
-### **GET /api/image/:albumId/images/:imageId/details**<br>
+### **GET /api/albums**<br>
 
 List all images in an album<br>
 Sample Response:<br>
 
 ```
 [
+    {
+        _id,
+        name,
+        description,
+        ...
+    },
+    ...
+]
+```
+
+### **GET /api/image/:albumId/images/:imageId/details**<br>
+
+Image details<br>
+Sample Response:<br>
+
+```
+
    {
         _id,
        name,
        imageUrl,
        isFavorite,
        ...
-    },
-    ...
-]
+    }
+
+
 ```
 
 ### **POST /api/image/:albumId/images**<br>

@@ -12,6 +12,7 @@ const ImageDetails = ({ imageDetails, albumDetails }) => {
   const revalidor = useRevalidator();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const handleAddComments = async (e) => {
     e.preventDefault();
@@ -21,7 +22,7 @@ const ImageDetails = ({ imageDetails, albumDetails }) => {
     try {
       setIsLoading(true);
       const response = await axiosInstance.post(
-        `/albums/images/${imageDetails.id}/comments`,
+        `/image/${imageDetails.id}/comments`,
         data,
       );
 
@@ -55,9 +56,9 @@ const ImageDetails = ({ imageDetails, albumDetails }) => {
     }
 
     try {
-      setIsLoading(true);
+      setIsDeleting(true);
       const response = await axiosInstance.delete(
-        `/albums/${albumId}/images/${imageId}/delete`,
+        `/image/${albumId}/images/${imageId}/delete`,
       );
       console.log(response);
       toastSuccess(
@@ -75,7 +76,7 @@ const ImageDetails = ({ imageDetails, albumDetails }) => {
       );
       console.log(error.response?.data?.message);
     } finally {
-      setIsLoading(false);
+      setIsDeleting(false);
     }
   };
 
@@ -240,16 +241,22 @@ const ImageDetails = ({ imageDetails, albumDetails }) => {
                     className="btn btn-primary btn-sm flex-grow-1"
                     style={{ borderRadius: "6px" }}
                   >
-                    Add Comment
+                    {isLoading ? "Adding..." : "Add Comment"}
+                    {isLoading && (
+                      <span className="spinner-border spinner-border-sm ms-2" />
+                    )}
                   </button>
                   <button
                     type="button"
-                    disabled={isLoading}
+                    disabled={isDeleting}
                     onClick={handleDeleteImage}
                     className="btn btn-outline-danger btn-sm"
                     style={{ borderRadius: "6px" }}
                   >
-                    Delete
+                    {isDeleting ? "Deleting..." : "Delete image"}
+                    {isDeleting && (
+                      <span className="spinner-border spinner-border-sm ms-2" />
+                    )}
                   </button>
                 </div>
               </Form>

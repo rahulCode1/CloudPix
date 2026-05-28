@@ -25,6 +25,7 @@ import usePhotosContext from "../../context/photosContext";
 
 const AlbumImages = ({ albumImages, album, users }) => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [imageId, setImageId] = useState(null);
   const [emails, setEmails] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
@@ -81,8 +82,9 @@ const AlbumImages = ({ albumImages, album, users }) => {
 
     try {
       setIsLoading(true);
+      setImageId(imageId);
       const response = await axiosInstance.put(
-        `/albums/${album.id}/images/${imageId}/favorite`,
+        `/image/${album.id}/images/${imageId}/favorite`,
       );
 
       if (response.data?.success) {
@@ -318,7 +320,7 @@ const AlbumImages = ({ albumImages, album, users }) => {
                 onClick={() =>
                   handleMarkOrUnmarkFavorite(image.id, image.isFavorite)
                 }
-                disabled={isLoading}
+                disabled={image.id === imageId && isLoading}
               >
                 {image.isFavorite ? (
                   <img

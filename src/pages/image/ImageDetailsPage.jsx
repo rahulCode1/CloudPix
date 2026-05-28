@@ -29,7 +29,7 @@ export default ImageDetailsPage;
 const image = async (imageId, albumId) => {
   try {
     const response = await axiosInstance.get(
-      `/albums/${albumId}/images/${imageId}/details`,
+      `/image/${albumId}/images/${imageId}/details`,
     );
 
     // console.log(response);

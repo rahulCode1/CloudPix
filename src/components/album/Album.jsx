@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import {  Link, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchAlbumAsync,
@@ -22,7 +22,6 @@ const Album = () => {
   const [album, setAlbum] = useState(initialAlbum);
 
   const token = localStorage.getItem("token");
- 
 
   const { albums, status } = useSelector((state) => state.album);
   const navigate = useNavigate();
@@ -44,7 +43,6 @@ const Album = () => {
           },
         );
 
-      
         setUser(response.data?.user);
         localStorage.setItem("userId", response.data?.user.id);
       } catch (error) {
@@ -137,48 +135,42 @@ const Album = () => {
                     transition: "all 0.3s ease",
                   }}
                 >
-                  <div className="card-body">
-                    {/* Album Icon */}
-                    <div className="mb-3 text-center">
-                      <i
-                        className="bi bi-folder2-open text-primary"
-                        style={{ fontSize: "40px" }}
-                      ></i>
+                  <Link
+                    to={album.id}
+                    className="text-reset text-decoration-none"
+                  >
+                    <div className="card-body">
+                      <div>
+                        {album.coverImage ? (
+                          <img
+                            src={album?.coverImage}
+                            className="img img-fluid"
+                            alt=""
+                          />
+                        ) : (
+                          <img
+                            src="https://png.pngtree.com/png-vector/20221125/ourmid/pngtree-no-image-available-icon-flatvector-illustration-blank-avatar-modern-vector-png-image_40962406.jpg"
+                            className="img img-fluid"
+                            alt="Not found"
+                          />
+                        )}
+                      </div>
+
+                      {/* Album Name */}
+                      <h5 className="card-title fw-bold text-center">
+                        {album.name}
+                      </h5>
+
+                      {/* Description */}
+                      <p className="card-text text-muted text-center small">
+                        {album?.description || "No description"}
+                      </p>
+                      {/* Owner */}
+                      <p className="card-text text-muted text-center small">
+                        Created by: {album?.ownerId?.name}
+                      </p>
                     </div>
-
-                    {/* Album Name */}
-                    <h5 className="card-title fw-bold text-center">
-                      {album.name}
-                    </h5>
-
-                    {/* Description */}
-                    <p className="card-text text-muted text-center small">
-                      {album?.description || "No description"}
-                    </p>
-                    {/* Owner */}
-                    <p className="card-text text-muted text-center small">
-                      Created by: {album?.ownerId?.name}
-                    </p>
-
-                    {/* Buttons */}
-                    <div className="d-flex justify-content-between mt-3">
-                      <button
-                        onClick={() => handleModalToggle(album)}
-                        className="btn btn-sm btn-outline-primary w-50 me-2"
-                      >
-                        <i className="bi bi-pencil-square me-1"></i>
-                        Edit
-                      </button>
-
-                      <Link
-                        to={album.id}
-                        className="btn btn-sm btn-primary w-50"
-                      >
-                        <i className="bi bi-eye me-1"></i>
-                        View
-                      </Link>
-                    </div>
-                  </div>
+                  </Link>
                 </div>
               </div>
             ))
