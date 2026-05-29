@@ -7,7 +7,7 @@ Built with React frontend, Express/Node backend, MongoDB database and JWT-based 
 
 ## Demo Link
 
-[Live Demo](https://kavios-pix-frontend-eight.vercel.app)
+[Live Demo](https://cloud-pix-six.vercel.app/albums)
 
 ---
 
@@ -20,7 +20,7 @@ Built with React frontend, Express/Node backend, MongoDB database and JWT-based 
 ## Quick Start
 
 ```
-git clone https://github.com/rahulCode1/kaviosPix_frontend.git
+git clone https://github.com/rahulCode1/CloudPix.git
 cd my-app
 npm install
 npm run dev # or `npm start`
