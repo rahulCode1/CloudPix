@@ -63,10 +63,10 @@ const Album = () => {
     fetchAlbums();
   }, [dispatch]);
 
-  const handleModalToggle = (album) => {
-    setAlbum(album);
-    setIsModalOpen(true);
-  };
+  // const handleModalToggle = (album) => {
+  //   setAlbum(album);
+  //   setIsModalOpen(true);
+  // };
 
   const handleOnChangeDescription = (e) => {
     setAlbum((prevStat) => ({ ...prevStat, [e.target.name]: e.target.value }));
