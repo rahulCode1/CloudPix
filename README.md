@@ -1,4 +1,4 @@
-# Kaviospix
+# CloudPix
 
 A full stack image management app where you can browse, search, add, edit and view album images.
 Built with React frontend, Express/Node backend, MongoDB database and JWT-based authentication.

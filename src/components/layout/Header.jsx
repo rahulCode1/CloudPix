@@ -13,7 +13,7 @@ const Header = () => {
         <div className="container-fluid md-px-5">
           {/* Logo Left */}
           <NavLink className="navbar-brand" to="/albums">
-            kaviosPix
+            CloudPix
           </NavLink>
 
           <button
