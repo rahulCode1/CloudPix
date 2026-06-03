@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
+import { FiEdit2 } from "react-icons/fi";
 import {
   fetchAlbumAsync,
   editAlbumDescriptionAsync,
@@ -63,18 +64,16 @@ const Album = () => {
     fetchAlbums();
   }, [dispatch]);
 
-  // const handleModalToggle = (album) => {
-  //   setAlbum(album);
-  //   setIsModalOpen(true);
-  // };
-
   const handleOnChangeDescription = (e) => {
     setAlbum((prevStat) => ({ ...prevStat, [e.target.name]: e.target.value }));
   };
 
-  const handleUpdateDescription = async (e) => {
-    e.preventDefault();
+  const handleModalToggle = (album) => {
+    setAlbum(album);
+    setIsModalOpen(true);
+  };
 
+  const handleUpdateDescription = async () => {
     try {
       await dispatch(editAlbumDescriptionAsync(album)).unwrap();
       setAlbum(initialAlbum);
@@ -93,6 +92,7 @@ const Album = () => {
           btnText={"Save"}
           isDisabled={status === "Loading"}
           onSave={handleUpdateDescription}
+          type="button"
           onclose={() => setIsModalOpen((prevStat) => !prevStat)}
         >
           <UpdateAlbumForm
@@ -129,48 +129,95 @@ const Album = () => {
             albums.map((album) => (
               <div className="col-sm-6 col-md-4 col-lg-3" key={album.id}>
                 <div
-                  className="card border-0 shadow-sm h-100"
+                  className="card border-0 shadow-sm h-100 overflow-hidden"
                   style={{
-                    borderRadius: "15px",
+                    borderRadius: "18px",
                     transition: "all 0.3s ease",
                   }}
                 >
                   <Link
                     to={album.id}
-                    className="text-reset text-decoration-none"
+                    className="text-decoration-none text-dark"
                   >
-                    <div className="card-body">
-                      <div>
-                        {album.coverImage ? (
-                          <img
-                            src={album?.coverImage}
-                            className="img img-fluid"
-                            alt=""
-                          />
-                        ) : (
-                          <img
-                            src="https://png.pngtree.com/png-vector/20221125/ourmid/pngtree-no-image-available-icon-flatvector-illustration-blank-avatar-modern-vector-png-image_40962406.jpg"
-                            className="img img-fluid"
-                            alt="Not found"
-                          />
-                        )}
-                      </div>
+                    {/* Cover Image */}
+                    <div className="position-relative">
+                      <img
+                        src={
+                          album.coverImage ||
+                          "https://png.pngtree.com/png-vector/20221125/ourmid/pngtree-no-image-available-icon-flatvector-illustration-blank-avatar-modern-vector-png-image_40962406.jpg"
+                        }
+                        alt="Album Cover"
+                        className="card-img-top"
+                        style={{
+                          height: "240px",
+                          objectFit: "cover",
+                        }}
+                      />
 
-                      {/* Album Name */}
-                      <h5 className="card-title fw-bold text-center">
+                      {/* Album Count Badge (Optional) */}
+                      <span
+                        className="badge bg-dark position-absolute"
+                        style={{
+                          top: "12px",
+                          left: "12px",
+                          borderRadius: "20px",
+                        }}
+                      >
+                        Album
+                      </span>
+                    </div>
+
+                    {/* Card Body */}
+                    <div className="card-body d-flex flex-column p-4">
+                      <h5
+                        className="fw-bold text-center mb-2"
+                        style={{
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
                         {album.name}
                       </h5>
 
-                      {/* Description */}
-                      <p className="card-text text-muted text-center small">
-                        {album?.description || "No description"}
+                      <p
+                        className="text-muted text-center small mb-3"
+                        style={{
+                          display: "-webkit-box",
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                          minHeight: "40px",
+                        }}
+                      >
+                        {album.description || "No description available"}
                       </p>
-                      {/* Owner */}
-                      <p className="card-text text-muted text-center small">
-                        Created by: {album?.ownerId?.name}
-                      </p>
+
+                      <div className="mt-auto text-center">
+                        <span className="badge text-bg-light border px-3 py-2">
+                          👤 {album?.ownerId?.name}
+                        </span>
+                      </div>
                     </div>
                   </Link>
+
+                  {/* Edit Button */}
+                  <button
+                    className="btn btn-light shadow-sm position-absolute d-flex justify-content-center align-items-center"
+                    style={{
+                      top: "5px",
+                      right: "5px",
+                      width: "40px",
+                      height: "40px",
+                      borderRadius: "50%",
+                      zIndex: 10,
+                      background: "rgba(255,255,255,0.9)",
+                      backdropFilter: "blur(8px)",
+                    }}
+                    onClick={() => handleModalToggle(album)}
+                  >
+                    <FiEdit2 size={18} />
+                  </button>
                 </div>
               </div>
             ))

@@ -52,6 +52,7 @@ const Modal = ({ onSave, title, type, children, isDisabled, onclose, btnText }) 
                   onClick={onclose}
                   className="btn btn-outline-secondary px-4"
                   style={{ borderRadius: "8px" }}
+                  type="button"
                 >
                   Close
                 </button>
