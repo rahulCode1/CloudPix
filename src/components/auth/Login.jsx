@@ -10,7 +10,7 @@ const Login = () => {
       className="d-flex justify-content-center align-items-center container container-fluid"
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #f8f9fa, #e9ecef)",
+     
       }}
     >
       <div
@@ -18,7 +18,7 @@ const Login = () => {
         style={{ width: "400px", borderRadius: "15px" }}
       >
         <div className="text-center mb-4">
-          <h2 className="fw-bold">Welcome Back</h2>
+          <h2 className="fw-bold">Welcome to CloudPix</h2>
           <p className="text-muted mb-0">Sign in to continue to your account</p>
         </div>
 

@@ -163,25 +163,16 @@ const Album = () => {
                           borderRadius: "20px",
                         }}
                       >
-                        Album
+                        {album.name}
                       </span>
                     </div>
 
                     {/* Card Body */}
-                    <div className="card-body d-flex flex-column p-4">
-                      <h5
-                        className="fw-bold text-center mb-2"
-                        style={{
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        {album.name}
-                      </h5>
+                    <div className="card-body d-flex flex-column px-4">
+                     
 
                       <p
-                        className="text-muted text-center small mb-3"
+                        className="text-muted text-center small mb-1"
                         style={{
                           display: "-webkit-box",
                           WebkitLineClamp: 2,
@@ -194,7 +185,7 @@ const Album = () => {
                       </p>
 
                       <div className="mt-auto text-center">
-                        <span className="badge text-bg-light border px-3 py-2">
+                        <span className="badge text-bg-light border px-3">
                           👤 {album?.ownerId?.name}
                         </span>
                       </div>
@@ -202,22 +193,24 @@ const Album = () => {
                   </Link>
 
                   {/* Edit Button */}
-                  <button
-                    className="btn btn-light shadow-sm position-absolute d-flex justify-content-center align-items-center"
-                    style={{
-                      top: "5px",
-                      right: "5px",
-                      width: "40px",
-                      height: "40px",
-                      borderRadius: "50%",
-                      zIndex: 10,
-                      background: "rgba(255,255,255,0.9)",
-                      backdropFilter: "blur(8px)",
-                    }}
-                    onClick={() => handleModalToggle(album)}
-                  >
-                    <FiEdit2 size={18} />
-                  </button>
+                  {user.email === album?.ownerId?.email && (
+                    <button
+                      className="btn btn-light shadow-sm position-absolute d-flex justify-content-center align-items-center"
+                      style={{
+                        top: "5px",
+                        right: "5px",
+                        width: "40px",
+                        height: "40px",
+                        borderRadius: "50%",
+                        zIndex: 10,
+                        background: "rgba(255,255,255,0.9)",
+                        backdropFilter: "blur(8px)",
+                      }}
+                      onClick={() => handleModalToggle(album)}
+                    >
+                      <FiEdit2 size={18} />
+                    </button>
+                  )}
                 </div>
               </div>
             ))

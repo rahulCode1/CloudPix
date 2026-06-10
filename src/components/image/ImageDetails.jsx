@@ -96,12 +96,17 @@ const ImageDetails = ({ imageDetails, albumDetails }) => {
         <div className="col-12 col-md-6 col-lg-7">
           <div
             className="rounded-3 overflow-hidden shadow"
-            style={{ aspectRatio: "4/3", background: "#f0f0f0" }}
+            style={{ background: "#f0f0f0" }}
           >
             <img
               src={imageDetails.imageUrl}
-              className="w-100 h-100"
-              style={{ objectFit: "cover", display: "block" }}
+          
+              style={{
+                width: "100%",
+                objectFit: "cover",
+                height: "100%",
+                display: "block",
+              }}
               alt={imageDetails.name}
             />
           </div>

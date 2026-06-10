@@ -289,7 +289,7 @@ const AlbumImages = ({ albumImages, album, users }) => {
                     objectFit: "cover",
 
                     width: "100%",
-                    height: "300px",
+                    height: "400px",
                   }}
                   alt={image.name}
                 />
