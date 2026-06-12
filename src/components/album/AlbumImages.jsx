@@ -277,24 +277,63 @@ const AlbumImages = ({ albumImages, album, users }) => {
       >
         {filteredImages && filteredImages.length !== 0 ? (
           filteredImages.map((image) => (
-            <div key={image.id} style={{ position: "relative" }}>
+            <div
+              key={image.id}
+              style={{
+                position: "relative",
+                display: "inline-block",
+                width: "300px",
+              }}
+            >
               <Link
                 to={`/image/${image.id}?albumId=${album.id}`}
                 state={{ from: `/${album.id}` }}
               >
                 <img
                   src={image.imageUrl}
-                  className=" img-fluid rounded shadow"
+                  className="img-fluid rounded shadow"
                   style={{
                     objectFit: "cover",
-
                     width: "100%",
-                    maxWidth: "300px",
                     height: "400px",
+                    display: "block",
                   }}
                   alt={image.name}
                 />
               </Link>
+
+              {/* Button outside Link — no nav triggered on click */}
+              <button
+                className="btn"
+                style={{
+                  position: "absolute",
+                  top: "5px",
+                  right: "5px",
+                  background: "rgba(255,255,255,0.8)",
+                  padding: "6px",
+                  borderRadius: "50%",
+                  cursor: "pointer",
+                  zIndex: 1,
+                }}
+                onClick={() =>
+                  handleMarkOrUnmarkFavorite(image.id, image.isFavorite)
+                }
+                disabled={image.id === imageId && isLoading}
+              >
+                {image.isFavorite ? (
+                  <img
+                    src={unFavoriteImg}
+                    style={{ width: "25px" }}
+                    alt="Remove from favorite"
+                  />
+                ) : (
+                  <img
+                    src={favoriteImg}
+                    style={{ width: "25px" }}
+                    alt="Add to favorite"
+                  />
+                )}
+              </button>
 
               <p
                 style={{
@@ -306,37 +345,6 @@ const AlbumImages = ({ albumImages, album, users }) => {
               >
                 {image.name}
               </p>
-
-              <button
-                className=" btn "
-                style={{
-                  position: "absolute",
-                  top: "5px",
-                  right: "5px",
-                  background: "rgba(255,255,255,0.8)",
-                  padding: "6px",
-                  borderRadius: "50%",
-                  cursor: "pointer",
-                }}
-                onClick={() =>
-                  handleMarkOrUnmarkFavorite(image.id, image.isFavorite)
-                }
-                disabled={image.id === imageId && isLoading}
-              >
-                {image.isFavorite ? (
-                  <img
-                    src={unFavoriteImg}
-                    style={{ width: "25px" }}
-                    alt="Add to favorite"
-                  />
-                ) : (
-                  <img
-                    src={favoriteImg}
-                    style={{ width: "25px" }}
-                    alt="Remove from favorite"
-                  />
-                )}
-              </button>
             </div>
           ))
         ) : (
