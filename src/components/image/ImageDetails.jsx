@@ -93,18 +93,17 @@ const ImageDetails = ({ imageDetails, albumDetails }) => {
 
       <div className="row g-4 align-items-start">
         {/* Image Column */}
-        <div className="col-12 col-md-6 col-lg-7">
+        <div className="col-12 col-md-6">
           <div
             className="rounded-3 overflow-hidden shadow"
             style={{ background: "#f0f0f0" }}
           >
             <img
               src={imageDetails.imageUrl}
-          
               style={{
                 width: "100%",
                 objectFit: "cover",
-                height: "100%",
+                maxHeight: "700px",
                 display: "block",
               }}
               alt={imageDetails.name}
@@ -113,7 +112,7 @@ const ImageDetails = ({ imageDetails, albumDetails }) => {
         </div>
 
         {/* Details Column */}
-        <div className="col-12 col-md-6 col-lg-5">
+        <div className="col-12 col-md-6">
           <div className="card border-0 shadow-sm rounded-3 h-100">
             <div className="card-body p-4">
               {/* Title */}

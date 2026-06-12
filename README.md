@@ -21,9 +21,9 @@ Built with React frontend, Express/Node backend, MongoDB database and JWT-based 
 
 ```
 git clone https://github.com/rahulCode1/CloudPix.git
-cd my-app
+cd CloudPix
 npm install
-npm run dev # or `npm start`
+npm npm start
 ```
 
 ---
@@ -82,7 +82,7 @@ Watch a walkthrough(3-4 minutes) of all the major features of this app:
 **Authentication**
 
 - Google OAuth2.0 (Login with google)
-- Protected routes for add/editing album and images
+- Protected routes for add, editing album and images
 
 ---
 
