@@ -1,7 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
-import { createBrowserRouter, Navigate, RouterProvider } from "react-router";
+import { createBrowserRouter,  RouterProvider } from "react-router";
 import RootLayout from "./components/layout/RootLayout";
 import LoginPage from "./pages/auth/LoginPage";
 import AuthSuccess from "./components/auth/AuthSuccess";
