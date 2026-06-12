@@ -84,7 +84,7 @@ const AddImage = () => {
   return (
     <main className="container py-5 container-fluid">
       <div className="d-flex align-items-center justify-content-between my-3">
-        <Link to="/albums" className="btn btn-light border shadow-sm me-3">
+        <Link to="/" className="btn btn-light border shadow-sm me-3">
           ← Back
         </Link>
 

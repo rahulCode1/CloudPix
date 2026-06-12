@@ -16,7 +16,7 @@ const AlbumForm = () => {
     try {
       await dispatch(addAlbumAsync(album)).unwrap();
 
-      navigate("/albums");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -25,7 +25,7 @@ const AlbumForm = () => {
   return (
     <main className="container py-5">
       <div className="d-flex align-items-center justify-content-between my-3">
-        <Link to="/albums" className="btn btn-light border shadow-sm me-3">
+        <Link to="/" className="btn btn-light border shadow-sm me-3">
           ← Back
         </Link>
 

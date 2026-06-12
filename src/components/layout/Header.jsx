@@ -20,7 +20,7 @@ const Header = () => {
         {/* Logo */}
         <NavLink
           className="navbar-brand fw-bold fs-3 text-primary"
-          to="/albums"
+          to="/"
 
           onClick={closeMenu}
         >
@@ -50,7 +50,7 @@ const Header = () => {
             {token && userId && (
               <li className="nav-item text-center">
                 <NavLink
-                  to="/albums"
+                  to="/"
                   end
                   onClick={closeMenu}
                   className={({ isActive }) =>
@@ -67,7 +67,7 @@ const Header = () => {
             {token && userId && (
               <li className="nav-item text-center">
                 <NavLink
-                  to="/albums/add"
+                  to="/add"
                   onClick={closeMenu}
                   className={({ isActive }) =>
                     `nav-link fw-medium ${

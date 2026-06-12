@@ -110,7 +110,7 @@ const Album = () => {
             All Albums ({albums.length})
           </h2>
 
-          <Link to="/albums/add" className="btn btn-primary shadow-sm">
+          <Link to="add" className="btn btn-primary shadow-sm">
             <i className="bi bi-plus-circle me-2"></i>
             Create Album
           </Link>

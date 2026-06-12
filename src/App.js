@@ -28,7 +28,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Navigate to="login" />,
+        element: (
+          <ProtectedRoute>
+            <AlbumPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "login",
@@ -38,44 +42,50 @@ const router = createBrowserRouter([
         path: "v1/profile/google",
         element: <AuthSuccess />,
       },
-      {
-        path: "albums",
 
-        element: <ProtectedRoute />,
+      {
+        path: "add",
+        element: (
+          <ProtectedRoute>
+            <AddAlbumPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: ":albumId",
+        element: <AlbumLayout />,
         children: [
           {
             index: true,
-            element: <AlbumPage />,
-          },
-          {
-            path: "add",
-            element: <AddAlbumPage />,
-          },
-          {
-            path: ":albumId",
-            element: <AlbumLayout />,
-            children: [
-              {
-                index: true,
-                element: <AlbumImagesPage />,
-                loader: albumImagesLoader,
-              },
-            ],
+            element: (
+              <ProtectedRoute>
+                <AlbumImagesPage />
+              </ProtectedRoute>
+            ),
+            loader: albumImagesLoader,
           },
         ],
       },
 
       {
         path: "image",
-        element: <ProtectedRoute />,
+
         children: [
           {
             index: true,
-            element: <AddImagePage />,
+            element: (
+              <ProtectedRoute>
+                <AddImagePage />
+              </ProtectedRoute>
+            ),
           },
           {
             path: ":imageId",
-            element: <ImageDetailsPage />,
+            element: (
+              <ProtectedRoute>
+                <ImageDetailsPage />
+              </ProtectedRoute>
+            ),
             loader: imageDetailsLoader,
           },
         ],

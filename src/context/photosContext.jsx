@@ -14,6 +14,7 @@ export const PhotosProvider = ({ children }) => {
 
   const [user, setUser] = useState(initialValue);
   const [searchText, setSearchText] = useState("");
+  const [error, setError] = useState(null);
 
   const handleLogout = (navigate) => {
     localStorage.removeItem("token");
@@ -25,6 +26,8 @@ export const PhotosProvider = ({ children }) => {
   return (
     <PhotosContext.Provider
       value={{
+        error,
+        setError,
         user,
         setUser,
         searchText,

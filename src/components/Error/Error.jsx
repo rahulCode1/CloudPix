@@ -32,7 +32,7 @@ const ErrorPage = () => {
         <div>
           <h1>{title}</h1>
           <p>
-            {message} Go to <Link to="/albums">Albums</Link>;
+            {message} Go to <Link to="/">Albums</Link>;
           </p>
         </div>
       </main>

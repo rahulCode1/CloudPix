@@ -7,8 +7,11 @@ import {
   toastAlert,
 } from "../../utils/toast";
 import { useState } from "react";
+import ErrorModal from "../model/ErrorModal";
+import usePhotosContext from "../../context/photosContext";
 
 const ImageDetails = ({ imageDetails, albumDetails }) => {
+  const { error, setError } = usePhotosContext();
   const revalidor = useRevalidator();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -19,13 +22,15 @@ const ImageDetails = ({ imageDetails, albumDetails }) => {
     const toastId = loadingToast("Adding comment...");
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
+
+    // console.log(data);
+
     try {
       setIsLoading(true);
       const response = await axiosInstance.post(
         `/image/${imageDetails.id}/comments`,
         data,
       );
-
       if (response.data?.success) {
         revalidor.revalidate();
         e.target.reset();
@@ -36,6 +41,7 @@ const ImageDetails = ({ imageDetails, albumDetails }) => {
         // console.log(response.data);
       }
     } catch (error) {
+      setError(error.response?.data?.message || "Failed to add comment.");
       toastError(
         toastId,
         error.response?.data?.message || "Failed to add comment.",
@@ -67,7 +73,7 @@ const ImageDetails = ({ imageDetails, albumDetails }) => {
       );
 
       if (response.data?.success) {
-        navigate(`/albums/${albumId}`);
+        navigate(`/${albumId}`);
       }
     } catch (error) {
       toastError(
@@ -82,11 +88,13 @@ const ImageDetails = ({ imageDetails, albumDetails }) => {
 
   return (
     <main className="container-lg py-4 py-md-5">
+      {error && <ErrorModal message={error} onClose={() => setError(null)} />}
+
       {/* Back Button */}
       <Link
         className="btn btn-outline-secondary btn-sm mb-4 d-inline-flex align-items-center gap-2"
         style={{ borderRadius: "6px", fontWeight: 500 }}
-        to={`/albums/${albumDetails.id}`}
+        to={`/${albumDetails.id}`}
       >
         ← Back to Album
       </Link>

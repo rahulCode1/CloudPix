@@ -51,7 +51,7 @@ const AlbumImages = ({ albumImages, album, users }) => {
   const handleDeleteAlbum = async (albumId) => {
     try {
       await dispatch(deleteAlbumAsync(albumId)).unwrap();
-      navigate("/albums");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -200,7 +200,7 @@ const AlbumImages = ({ albumImages, album, users }) => {
       <div className="d-flex  align-items-center justify-content-between mb-4">
         {/* LEFT SIDE */}
         <div className="">
-          <Link to="/albums" className="btn btn-light border shadow-sm me-3">
+          <Link to="/" className="btn btn-light border shadow-sm me-3">
             ← Back
           </Link>
         </div>
@@ -280,7 +280,7 @@ const AlbumImages = ({ albumImages, album, users }) => {
             <div key={image.id} style={{ position: "relative" }}>
               <Link
                 to={`/image/${image.id}?albumId=${album.id}`}
-                state={{ from: `/albums/${album.id}` }}
+                state={{ from: `/${album.id}` }}
               >
                 <img
                   src={image.imageUrl}

@@ -10,7 +10,7 @@ const AuthSuccess = () => {
 
     if (token) {
       localStorage.setItem("token", token);
-      navigate("/albums");
+      navigate("/");
     } else {
       navigate("/login");
     }
