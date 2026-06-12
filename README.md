@@ -41,7 +41,7 @@ npm npm start
 ## Demo Video
 
 Watch a walkthrough(3-4 minutes) of all the major features of this app:
-[Loom Video]()
+[Loom Video](https://drive.google.com/file/d/1xG_8DQtdxO0yZtdDvDjYMRUOlJnXLFxC/view?usp=sharing)
 
 ---
 
