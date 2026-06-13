@@ -7,7 +7,7 @@ Built with React frontend, Express/Node backend, MongoDB database and JWT-based 
 
 ## Demo Link
 
-[Live Demo](https://cloud-pix-six.vercel.app/albums)
+[Live Demo](https://cloud-pix-six.vercel.app)
 
 ---
 
