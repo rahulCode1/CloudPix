@@ -18,7 +18,7 @@ const Album = () => {
     description: "",
   };
 
-  const { user, setUser } = usePhotosContext();
+  const { user, setUser, albumSearchText } = usePhotosContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [album, setAlbum] = useState(initialAlbum);
 
@@ -27,6 +27,12 @@ const Album = () => {
   const { albums, status } = useSelector((state) => state.album);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  let filterdAlbums = albums.filter(
+    (album) =>
+      album.name.toLowerCase().includes(albumSearchText.toLowerCase()) ||
+      album.description?.toLowerCase().includes(albumSearchText.toLowerCase()),
+  );
 
   useEffect(() => {
     const validateUserLogin = async () => {
@@ -125,8 +131,8 @@ const Album = () => {
             <div className="text-center py-5">
               <div className="spinner-border text-primary"></div>
             </div>
-          ) : albums && albums.length !== 0 ? (
-            albums.map((album) => (
+          ) : filterdAlbums && filterdAlbums.length !== 0 ? (
+            filterdAlbums.map((album) => (
               <div className="col-sm-6 col-md-4 col-lg-3" key={album.id}>
                 <div
                   className="card border-0 shadow-sm h-100 overflow-hidden"
@@ -169,8 +175,6 @@ const Album = () => {
 
                     {/* Card Body */}
                     <div className="card-body d-flex flex-column px-4">
-                     
-
                       <p
                         className="text-muted text-center small mb-1"
                         style={{

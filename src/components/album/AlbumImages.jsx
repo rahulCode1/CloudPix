@@ -163,7 +163,7 @@ const AlbumImages = ({ albumImages, album, users }) => {
   };
 
   return (
-    <main className="md-container py-4">
+    <main className="md-container pt-2 pb-4">
       {isModalOpen && (
         <Model
           onclose={() => setModalOpen((prevStat) => !prevStat)}
@@ -260,6 +260,8 @@ const AlbumImages = ({ albumImages, album, users }) => {
         </div>
       </div>
 
+    
+
       <div>
         <h2 className="fw-bold mb-0">
           {album.name}({filteredImages && filteredImages.length}) images
@@ -267,7 +269,7 @@ const AlbumImages = ({ albumImages, album, users }) => {
       </div>
 
       <div
-        className="py-4"
+        className="py-4 "
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr)",
@@ -283,7 +285,9 @@ const AlbumImages = ({ albumImages, album, users }) => {
                 position: "relative",
                 display: "inline-block",
                 width: "300px",
+                height: "400px",
               }}
+              className=" mx-auto"
             >
               <Link
                 to={`/image/${image.id}?albumId=${album.id}`}
@@ -291,11 +295,11 @@ const AlbumImages = ({ albumImages, album, users }) => {
               >
                 <img
                   src={image.imageUrl}
-                  className="img-fluid rounded shadow"
+                  className="img img-fluid rounded shadow"
                   style={{
                     objectFit: "cover",
                     width: "100%",
-                    height: "400px",
+                    height: "100%",
                     display: "block",
                   }}
                   alt={image.name}

@@ -14,6 +14,7 @@ export const PhotosProvider = ({ children }) => {
 
   const [user, setUser] = useState(initialValue);
   const [searchText, setSearchText] = useState("");
+  const [albumSearchText, setAlbumSearchText] = useState("");
   const [error, setError] = useState(null);
 
   const handleLogout = (navigate) => {
@@ -31,6 +32,8 @@ export const PhotosProvider = ({ children }) => {
         user,
         setUser,
         searchText,
+        albumSearchText,
+        setAlbumSearchText,
         setSearchText,
         handleLogout,
       }}
