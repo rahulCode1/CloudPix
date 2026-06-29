@@ -76,7 +76,7 @@ export const addAlbumAccessPermissionAsync = createAsyncThunk(
     const albumId = data.albumId;
     try {
       const response = await apiInstance.put(`/albums/${albumId}/share`, {
-        emails: data.emails.map((email) => email.trim()),
+        shareUserId: data.shareUserId,
       });
 
       toastSuccess(
@@ -84,6 +84,7 @@ export const addAlbumAccessPermissionAsync = createAsyncThunk(
         response.data?.message || "Permission allowed successfully.",
       );
 
+      console.log(response.data)
       return response.data;
     } catch (error) {
       toastError(
@@ -92,6 +93,38 @@ export const addAlbumAccessPermissionAsync = createAsyncThunk(
       );
       return rejectWithValue(
         error.response?.data?.message || "Failed to allow permission.",
+      );
+    }
+  },
+);
+
+export const revokeAlbumAccessPermissionAsync = createAsyncThunk(
+  "album/revokePermission",
+  async (data, { rejectWithValue }) => {
+    const toastId = loadingToast("Denying album access...");
+
+    try {
+      const response = await apiInstance.patch(
+        `/albums/${data.albumId}/revokeAccess`,
+        {
+          idForDenyAccess: data.idForDenyAccess,
+        },
+      );
+
+      toastSuccess(
+        toastId,
+        response.data?.message || "Access dinayed successfully.",
+      );
+
+      console.log(response.data)
+      return response.data;
+    } catch (error) {
+      toastError(
+        toastId,
+        error.response?.data?.message || "Failed to dinyed permission",
+      );
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to dinyed permission.",
       );
     }
   },
@@ -130,7 +163,11 @@ const albumSlice = createSlice({
     error: null,
   },
 
-  reducers: {},
+  reducers: {
+    clearError(state) {
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(addAlbumAsync.pending, (state) => {
       state.status = "Loading";
@@ -143,7 +180,7 @@ const albumSlice = createSlice({
 
     builder.addCase(addAlbumAsync.rejected, (state, action) => {
       state.status = "Error";
-      state.error = action.payload?.message;
+      state.error = action.payload;
     });
 
     builder.addCase(fetchAlbumAsync.pending, (state) => {
@@ -189,6 +226,22 @@ const albumSlice = createSlice({
       state.error = action.payload;
     });
 
+    builder.addCase(revokeAlbumAccessPermissionAsync.pending, (state) => {
+      state.status = "Loading";
+    });
+
+    builder.addCase(revokeAlbumAccessPermissionAsync.fulfilled, (state) => {
+      state.status = "Success";
+    });
+
+    builder.addCase(
+      revokeAlbumAccessPermissionAsync.rejected,
+      (state, action) => {
+        state.status = "Error";
+        state.error = action.payload;
+      },
+    );
+
     builder.addCase(deleteAlbumAsync.pending, (state) => {
       state.status = "Loading";
     });
@@ -207,4 +260,5 @@ const albumSlice = createSlice({
   },
 });
 
+export const { clearError } = albumSlice.actions;
 export default albumSlice.reducer;

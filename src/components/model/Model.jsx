@@ -1,4 +1,12 @@
-const Modal = ({ onSave, title, type, children, isDisabled, onclose, btnText }) => {
+const Modal = ({
+  onSave,
+  title,
+  type,
+  children,
+  isDisabled,
+  onclose,
+  btnText,
+}) => {
   return (
     <>
       <div
@@ -57,19 +65,21 @@ const Modal = ({ onSave, title, type, children, isDisabled, onclose, btnText }) 
                   Close
                 </button>
 
-                <button
-                  onClick={onSave}
-                  type={type}
-                  disabled={isDisabled}
-                  className="btn btn-primary px-4 shadow-sm"
-                  style={{
-                    borderRadius: "8px",
-                    background: "linear-gradient(135deg, #0d6efd, #4dabf7)",
-                    border: "none",
-                  }}
-                >
-                  {btnText}
-                </button>
+                {btnText && (
+                  <button
+                    onClick={onSave}
+                    type={type}
+                    disabled={isDisabled}
+                    className="btn btn-primary px-4 shadow-sm"
+                    style={{
+                      borderRadius: "8px",
+                      background: "linear-gradient(135deg, #0d6efd, #4dabf7)",
+                      border: "none",
+                    }}
+                  >
+                    {btnText}
+                  </button>
+                )}
               </div>
             </div>
           </div>

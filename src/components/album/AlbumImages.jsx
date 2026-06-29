@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   deleteAlbumAsync,
   addAlbumAccessPermissionAsync,
+  revokeAlbumAccessPermissionAsync,
 } from "../../pages/album/albumSlice";
 import {
   useNavigate,
@@ -25,8 +26,10 @@ import usePhotosContext from "../../context/photosContext";
 
 const AlbumImages = ({ albumImages, album, users }) => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isModelForRevokeAccess, setModelForRevokeAccess] = useState(false);
+  const [idForDenyAccess, setidForDenyAccess] = useState("");
   const [imageId, setImageId] = useState(null);
-  const [emails, setEmails] = useState("");
+  const [shareUserId, setShareUserId] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [fevtImages, setFevtImgs] = useState([]);
@@ -57,23 +60,39 @@ const AlbumImages = ({ albumImages, album, users }) => {
     }
   };
 
-  const handleOnChangeEmails = (e) => {
-    setEmails(e.target.value);
-  };
-
   const handleAlbumSharing = async (e) => {
     e.preventDefault();
 
-    const data = { emails: emails.split(","), albumId: album.id };
+    const data = { shareUserId, albumId: album.id };
 
     try {
       await dispatch(addAlbumAccessPermissionAsync(data)).unwrap();
-
+      revalidator.revalidate()
+      setShareUserId(null);
       setModalOpen(false);
     } catch (error) {
       console.log(error);
     }
   };
+
+  const handleRevokeAlbumSharing = async (e) => {
+    e.preventDefault();
+
+    try {
+      await dispatch(
+        revokeAlbumAccessPermissionAsync({
+          albumId: album.id,
+          idForDenyAccess,
+        }),
+      ).unwrap();
+      revalidator.revalidate();
+      setidForDenyAccess(null);
+      setModelForRevokeAccess(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   const handleMarkOrUnmarkFavorite = async (imageId, isFavorite) => {
     const toastId = loadingToast(
@@ -180,19 +199,58 @@ const AlbumImages = ({ albumImages, album, users }) => {
 
               <select
                 className="form-select"
-                onChange={handleOnChangeEmails}
-                name="emails"
-                id="emails"
+                onChange={(e) => setShareUserId(e.target.value)}
+                name="shareUserId"
+                value={shareUserId}
+                id="shareUserId"
+                required
               >
                 <option value="" disabled selected>
                   Select User
                 </option>
                 {users.map((user) => (
-                  <option value={user.email}>{user.email}</option>
+                  <option value={user.id}>{user.email}</option>
                 ))}
               </select>
             </div>
           </form>
+        </Model>
+      )}
+      {isModelForRevokeAccess && (
+        <Model
+          onclose={() => setModelForRevokeAccess((prevStat) => !prevStat)}
+          onSave={handleRevokeAlbumSharing}
+          btnText={album?.sharedWith.length > 0 ? "Revoke Permession" : null}
+          title={"Revoke User Permission"}
+          isDisabled={status === "Loading"}
+        >
+          {album?.sharedWith.length > 0 ? (
+            <form>
+              <div>
+                <label htmlFor="idForDenyAccess" className="form-label">
+                  Remove Emails:
+                </label>
+
+                <select
+                  className="form-select"
+                  onChange={(e) => setidForDenyAccess(e.target.value)}
+                  value={idForDenyAccess}
+                  name="idForDenyAccess"
+                  id="idForDenyAccess"
+                  required
+                >
+                  <option value="" disabled selected>
+                    Select User
+                  </option>
+                  {album?.sharedWith.map((user) => (
+                    <option value={user.id}>{user.email}</option>
+                  ))}
+                </select>
+              </div>
+            </form>
+          ) : (
+            <p>This album not shared with anyone</p>
+          )}
         </Model>
       )}
 
@@ -244,6 +302,15 @@ const AlbumImages = ({ albumImages, album, users }) => {
             </li>
             <li>
               <button
+                onClick={() => setModelForRevokeAccess(!isModalOpen)}
+                disabled={status === "Loading"}
+                className="dropdown-item"
+              >
+                Revoke User Permission
+              </button>
+            </li>
+            <li>
+              <button
                 onClick={() => handleDeleteAlbum(album.id)}
                 className="dropdown-item"
                 disabled={status === "Loading"}
@@ -259,8 +326,6 @@ const AlbumImages = ({ albumImages, album, users }) => {
           </ul>
         </div>
       </div>
-
-    
 
       <div>
         <h2 className="fw-bold mb-0">

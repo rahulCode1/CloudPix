@@ -1,9 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Form, useNavigate, Link } from "react-router";
 import { addAlbumAsync } from "../../pages/album/albumSlice";
+import ErrorModal from "../model/ErrorModal";
+import { clearError } from "../../pages/album/albumSlice";
 
 const AlbumForm = () => {
-  const { status } = useSelector((state) => state.album);
+  const { status, error } = useSelector((state) => state.album);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -24,6 +26,9 @@ const AlbumForm = () => {
 
   return (
     <main className="container py-5">
+      {error && (
+        <ErrorModal message={error} onClose={() => dispatch(clearError())} />
+      )}
       <div className="d-flex align-items-center justify-content-between my-3">
         <Link to="/" className="btn btn-light border shadow-sm me-3">
           ← Back
